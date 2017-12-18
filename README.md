@@ -1,3 +1,5 @@
+# pypsp
+
 This is a Python module for control of GW-Instek PSP power supply units
 over a serial interface.  It requires pyserial to be installed, and a recent
 (3.3+ or newer) version of Python.
@@ -7,15 +9,21 @@ supplies (they are optoisolated, so voltage is needed from the computer's
 serial port for communications to work).  The power supplies communicate
 at 2400 baud.
 
-Full doc of communication protocol and electrical connection is in [user manual](http://www.gwinstek.com/en-global/Download/DownloadFile/DownloadFile/download%23_%2304_DCPower%23_%23PSP%23_%23PSP_UserManual_EN_RevG_201702.pdf)
+Full description of communication protocol and electrical connection is in [user manual](http://www.gwinstek.com/en-global/Download/DownloadFile/DownloadFile/download%23_%2304_DCPower%23_%23PSP%23_%23PSP_UserManual_EN_RevG_201702.pdf)
 
 This module is fully working with USB to RS232 converters
 
-To install:
+## install:
 
-# python setup.py install
+    pip install .
 
-Example:
+## usage:
+
+First create serial connection (with pyserial) and give this serial connection into Psp class.
+
+Then use properties to access values in power supply.
+
+## Example:
 
     >>> import serial
     >>> import psp
@@ -25,4 +33,4 @@ Example:
     >>> psp.relay = True
     >>> print psp.current
 
-this set the output voltage, close the output relay, then print the output current.
+Example Set the output voltage, close the output relay, then print the output current.
