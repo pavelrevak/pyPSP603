@@ -1,9 +1,8 @@
-"""psp.py
-
-This module provides an API for controlling GW-Instek PSP-xxx
+"""This module provides an API for controlling GW-Instek PSP
 power supplies over a serial port.
 
-Copyright (c) 2011-2012, Timothy Twillman
+Copyright (c)
+2011-2012, Timothy Twillman
 2017, Pavel Revak
 All rights reserved.
 
@@ -34,20 +33,21 @@ policies, either expressed or implied, of Timothy Twillman.
 """
 import time
 
-class Psp(object):
-    """ GW Instek PSP-xxx Power Supply Interface Class.
+class Psp():
+    """ GW Instek PSP Power Supply Interface Class.
 
-    This class allows control of PSP-xxx power supplies via serial interface.
+    This class allows control of PSP power supplies via serial interface.
     To use, instantiate this class with a (pySerial) serial port object.
 
     Example:
 
     >>> import serial
+    >>> import psp
     >>> serial_port = serial.Serial('/dev/ttyS0', 2400)
-    >>> psp = Psp(serial_port)
-    >>> psp.voltage = 4.2
-    >>> psp.relay = True
-    >>> print psp.current
+    >>> psu = psp.Psp(serial_port)
+    >>> psu.voltage = 4.2
+    >>> psu.relay = True
+    >>> print(psu.current)
 
     would set the output voltage, close the output relay, then print the
     output current.
@@ -65,14 +65,17 @@ class Psp(object):
         """
         self._serial = serial_port
 
-    def send_command(self, cmd, wait = None):
+    def send_command(self, cmd, wait=None):
         """ Send a command to the PSU.
 
         Args:
             cmd (str):  The command to send.
             wait (float):  Number of seconds to sleep after sending command.
         """
-        self._serial.write(cmd + "\x0d")
+        if isinstance(cmd, str):
+            cmd = map(ord, cmd)
+        self._serial.write(cmd)
+        self._serial.write([0x0d])
         if wait:
             time.sleep(wait)
 
@@ -83,12 +86,13 @@ class Psp(object):
             This function will block until a complete line is recieved.
             Presently there is no way to specify a timeout.
         """
-        response = ''
-        while not response.endswith("\x0a"):
+        response = []
+        start_time = time.time()
+        while not response or response[-1] != 0x0a:
             # Read in a char from the port.
-            response += self._serial.read()
+            response += list(self._serial.read())
 
-        return response
+        return ''.join(map(chr, response))
 
     @property
     def voltage(self):
