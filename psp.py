@@ -160,8 +160,8 @@ class Psp():
         The dict has the following keys:
             relay        (bool) Relay status; output power is "ON" if True.
             overheated   (bool) PSU is overheating if True.
-            fine_control (bool) PSU is in "fine knob control" mode if True.
-            knob_locked  (bool) PSU knob is locked out if True.
+            fine_control (bool) PSU is in "fine wheel control" mode if True.
+            wheel_locked (bool) PSU wheel is locked out if True.
             remote       (bool) PSU is in "remote" mode if True.
             locked       (bool) PSU is in "locked" mode if True.
         """
@@ -171,7 +171,7 @@ class Psp():
         return { 'relay' : True if s[1] == '1' else False,
                  'overheated' : True if s[2] == '1' else False,
                  'fine_control' : True if s[3] == '1' else False,
-                 'knob_locked' : True if s[4] == '1' else False,
+                 'wheel_locked' : True if s[4] == '1' else False,
                  'remote' : True if s[5] == '1' else False,
                  'locked' : True if s[6] == '1' else False }
 
@@ -188,8 +188,8 @@ class Psp():
             power_limit   (float) Power limit, in watts.
             relay         (bool) Relay status; output power is "ON" if True.
             overheated    (bool) PSU is overheating if True.
-            fine_control  (bool) PSU is in "fine knob control" mode if True.
-            knob_locked   (bool) PSU knob is locked out if True.
+            fine_control  (bool) PSU is in "fine wheel control" mode if True.
+            wheel_locked  (bool) PSU wheel is locked out if True.
             remote        (bool) PSU is in "remote" mode if True.
             locked        (bool) PSU is in "locked" mode if True.
         """
@@ -206,7 +206,7 @@ class Psp():
             'relay' : True if s[31] == '1' else False,
             'overheated' : True if s[32] == '1' else False,
             'fine_control' : True if s[33] == '1' else False,
-            'knob_locked' : True if s[34] == '1' else False,
+            'wheel_locked' : True if s[34] == '1' else False,
             'remote' : True if s[35] == '1' else False,
             'locked' : True if s[36] == '1' else False }
 
@@ -217,13 +217,13 @@ class Psp():
 
     @property
     def fine_control(self):
-        """True if knob is in fine control mode.  Read-only bool value."""
+        """True if wheel is in fine control mode.  Read-only bool value."""
         return self.status.get('fine_control')
 
     @property
-    def knob_locked(self):
-        """True if knob is locked.  Read-only bool value."""
-        return self.status.get('knob_locked')
+    def wheel_locked(self):
+        """True if wheel is locked.  Read-only bool value."""
+        return self.status.get('wheel_locked')
 
     @property
     def remote(self):
