@@ -103,7 +103,7 @@ class Psp():
 
     @voltage.setter
     def voltage(self, value):
-        self.send_command("SV %05.2F" % (value), 0.6)
+        self.send_command("SV %05.2F" % (value), 0.2)
 
     @property
     def voltage_limit(self):
