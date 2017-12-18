@@ -1,9 +1,10 @@
-"""psp603.py
+"""psp.py
 
-This module provides an API for controlling GW-Instek PSP-603
+This module provides an API for controlling GW-Instek PSP-xxx
 power supplies over a serial port.
 
 Copyright (c) 2011-2012, Timothy Twillman
+2017, Pavel Revak
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -33,21 +34,20 @@ policies, either expressed or implied, of Timothy Twillman.
 """
 import time
 
-class PSP603(object):
+class Psp(object):
+    """ GW Instek PSP-xxx Power Supply Interface Class.
 
-    """ GW Instek PSP-603 Power Supply Interface Class.
-
-    This class allows control of PSP-603 power supplies via serial interface.
+    This class allows control of PSP-xxx power supplies via serial interface.
     To use, instantiate this class with a (pySerial) serial port object.
 
     Example:
 
     >>> import serial
     >>> serial_port = serial.Serial('/dev/ttyS0', 2400)
-    >>> psp603 = PSP603(serial_port)
-    >>> psp603.voltage = 4.2
-    >>> psp603.relay = True
-    >>> print psp603.current
+    >>> psp = Psp(serial_port)
+    >>> psp.voltage = 4.2
+    >>> psp.relay = True
+    >>> print psp.current
 
     would set the output voltage, close the output relay, then print the
     output current.
@@ -58,7 +58,7 @@ class PSP603(object):
     """
 
     def __init__(self, serial_port):
-        """ Create a PSP603 object, binding it to the given in serial port.
+        """ Create a PSP object, binding it to the given in serial port.
 
         Args:
             serial_port (Serial / RFC2217Serial): Serial port instance.
