@@ -151,7 +151,7 @@ class Psp():
 
     @power_limit.setter
     def power_limit(self, value):
-        self.send_command("SW %03d" % (value))
+        self.send_command("SP %03d" % (value))
 
     @property
     def status(self):
