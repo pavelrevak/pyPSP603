@@ -34,3 +34,7 @@ Then use properties to access values in power supply.
     >>> print psp.current
 
 Example Set the output voltage, close the output relay, then print the output current.
+
+## Credits
+
+Original code is written by [Tymm (Twillman) Zerr](https://github.com/tymmothy) and is forked and rewrited from [pyPSP603](https://github.com/tymmothy/pyPSP603) with full support of python3 and generalized name to `pypsp` for all PSP power supplies, because actually whole series has same protocol only differ in maximum voltage and current.
